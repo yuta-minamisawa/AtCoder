@@ -9,6 +9,12 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
-    
+    string s;
+    cin >> s;
+    int slen = s.size();
+    rep(i, slen-8){
+        cout << s[i];
+    }
+    cout << endl;
     return 0;
 }
