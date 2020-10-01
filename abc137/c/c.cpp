@@ -9,6 +9,24 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
-    
+    int n;
+    cin >> n;
+    vector<string> s;
+    map<string, ll> sbox;
+    s.resize(n);
+    for(auto& x : s){
+        cin >> x;
+    }
+
+    for(auto x : s){
+        sort(x.begin(), x.end());
+        sbox[x]++;
+    }
+
+    ll res=0;
+    for(auto [_, ros] : sbox){
+        res += ros * (ros - 1) / 2;
+    }
+    cout << res << endl;
     return 0;
 }

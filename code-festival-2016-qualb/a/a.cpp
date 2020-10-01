@@ -8,7 +8,16 @@ using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
 
-int main() { 
-    
-    return 0; 
+int main() {
+  string s, t = "CODEFESTIVAL2016";
+  cin >> s;
+  int slen = t.size();
+  int res = 0;
+  rep(i, slen){
+      if(s[i]!=t[i]){
+          res++;
+      }
+  }
+  cout << res << endl;
+  return 0;
 }

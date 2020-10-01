@@ -8,7 +8,13 @@ using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
 
-int main() { 
-    
-    return 0; 
+int main(){
+    string acl = "ACL";
+    int k;
+    cin >> k;
+    rep(i, k){
+        cout << acl;
+    }
+    cout << endl;
+    return 0;
 }

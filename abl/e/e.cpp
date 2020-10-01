@@ -8,7 +8,11 @@ using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
 
-int main() { 
-    
-    return 0; 
+void update(int i, int x);
+int query(int x, int y, int k, int l, int r);
+
+int main(){
+    int n, q;
+    cin >> n >> q;
+    return 0;
 }

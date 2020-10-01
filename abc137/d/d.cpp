@@ -9,6 +9,29 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
+    int n, m;
+    cin >> n >> m;
+    priority_queue<P> ab;
+    rep(i, n){
+        int a, b;
+        cin >> a >> b;
+        ab.push(make_pair(m-a, b));
+    }
+
+    int res = 0;
+    priority_queue<int> rew;
+
+    for(int i=m-1;i>=0;i--){
+        while(!ab.empty()&&ab.top().first==i){
+            rew.push(ab.top().second);
+            ab.pop();
+        }
+        if(!rew.empty()){
+            res += rew.top();
+            rew.pop();
+        }
+    }
     
+    cout << res << endl;
     return 0;
 }

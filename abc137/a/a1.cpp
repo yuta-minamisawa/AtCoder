@@ -8,7 +8,9 @@ using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
 
-int main() { 
-    
-    return 0; 
+int main(){
+    int a, b;
+    cin >> a >> b;
+    cout << max(a+b, max(a-b, a*b)) << endl;
+    return 0;
 }

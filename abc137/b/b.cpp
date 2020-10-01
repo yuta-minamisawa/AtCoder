@@ -9,6 +9,11 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
-    
+    int k, x;
+    cin >> k >> x;
+    rep2(i, x-k+1, x+k){
+        cout << i << " ";
+    }
+    cout << endl;
     return 0;
 }

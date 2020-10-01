@@ -8,7 +8,13 @@ using ll = long long;
 using ull = unsigned long long;
 using P = pair<int, int>;
 
-int main() { 
-    
-    return 0; 
+int main(){
+    ll a, b, c, d;
+    cin >> a >> b >> c >> d;
+    if(d<a||b<c){
+        cout << "No" << endl;
+    }else{
+        cout << "Yes" << endl;
+    }
+    return 0;
 }
