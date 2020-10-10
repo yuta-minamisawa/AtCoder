@@ -10,18 +10,17 @@ using P = pair<int, int>;
 
 static const int MAX = 100000;
 static const int INFTY = 1000000;
-static const int WHITE = 0;
-static const int GRAY = 1;
-static const int BLACK = 2;
 
 int n, m, s, t;
-vector<int> adj[MAX], inicos;
+vector<int> adj[MAX], tmp;
+vector<vector<int>> dp;
 
 void dijkstra();
 
 int main() { 
     cin >> n >> m;
-    inicos.resize(n);
+    tmp.resize(n, INFTY);
+    dp.resize(3, tmp);
     rep(i, m){
         int u, v;
         cin >> u >> v;
@@ -30,54 +29,29 @@ int main() {
     cin >> s >> t;
     s--;
     t--;
-    rep(i, 3){
-        dijkstra();
-        if(inicos[t]%3==0){
-            cout << inicos[t] / 3 << endl;
-            break;
-        }
-    }
-    cout << -1 << endl;
-    return 0; 
-}
-
-void dijkstra(){
-    priority_queue<P> pq;
-    int color[n];
-    int d[n];
-    rep(i, n){
-        color[i] = WHITE;
-        d[i] = INFTY;
-    }
-
-    d[s] = inicos[s];
-    pq.push(make_pair(inicos[s], s));
-    color[s] = GRAY;
+    priority_queue<P, vector<P>, greater<P>> pq;
+    pq.push(make_pair(0, s));
+    dp[0][s] = 0;
 
     while(!pq.empty()){
-        P f = pq.top();
+        P now = pq.top();
         pq.pop();
-        int u = f.second;
-        color[u] = BLACK;
 
-        if(d[u] + inicos[u] < f.first * (-1)) continue;
+        if(now.first != dp[now.first % 3][now.second]) continue;
 
-        int adjlen = adj[u].size();
-        rep(j, adjlen){
-            int v = adj[u][j];
-            if(color[v]==BLACK){
-                continue;
-            }
-            if(d[v] + inicos[v] > d[u] + 1){
-                d[v] = d[u] + 1;
-                pq.push(make_pair(d[v]*(-1), v));
-                color[v] = GRAY;
-            }
+        for(auto v : adj[now.second]){
+          if (now.first + 1 < dp[(now.first + 1) % 3][v]) {
+            dp[(now.first + 1) % 3][v] = now.first + 1;
+            pq.push(make_pair(now.first + 1, v));
+          }
         }
     }
 
-    rep(i, n){
-        cout << i << " " << d[i] << endl;
-        inicos[i] = d[i];
+    if(dp[0][t]==INFTY){
+        cout << -1 << endl;
+    }else{
+        cout << dp[0][t] / 3 << endl;
     }
+    
+    return 0; 
 }
