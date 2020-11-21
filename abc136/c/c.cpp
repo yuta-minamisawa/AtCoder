@@ -9,6 +9,22 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
-    
+    int n;
+    cin >> n;
+    vector<int> h(n);
+    h.assign(n, 0);
+    for(auto &x : h) cin >> x;
+    string res = "Yes";
+    rep2(i, 1, n){
+        if(h[i-1]>h[i]){
+            res = "No";
+            break;
+        }else{
+            if(h[i-1]!=h[i]){
+                h[i]--;
+            }
+        }
+    }
+    cout << res << endl;
     return 0;
 }

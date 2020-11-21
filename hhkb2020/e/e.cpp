@@ -96,14 +96,41 @@ int main() {
         s.push_back(x);
     }
 
-    vector<vector<int>> hbox(h), wbox(w);
+    vector<int> tmp;
+    vector<vector<int>> hbox(h, tmp), wbox(w, tmp);
+
     rep(i, h){
-        hbox[i].push_back(-1);
-        hbox[i].push_back(w);
+        hbox[i].push_back(0);   // 左端
+        rep(j, w){  // 左
+            if(s[i][j]=='.'){
+                hbox[i].push_back(1+hbox[i][j]);
+            }else{
+                hbox[i].push_back(0);
+            }
+        }
+
+        for(int j=w-1;j>0;j--){ // 右
+            if(hbox[i][j]){
+                hbox[i][j] = max(hbox[i][j], hbox[i][j+1]);
+            }
+        }
     }
+
     rep(i, w){
-        wbox[i].push_back(-1);
-        wbox[i].push_back(h);
+        wbox[i].push_back(0);   // 上端
+        rep(j, h){  //　下
+            if(s[j][i]=='.'){
+                wbox[i].push_back(1+wbox[i][j]);
+            }else{
+                wbox[i].push_back(0);
+            }
+        }
+
+        for(int j=h-1;j>0;j--){ // 上
+            if(wbox[i][j]){
+                wbox[i][j] = max(wbox[i][j], wbox[i][j+1]);
+            }
+        }
     }
 
     int messcnt = 0;
@@ -112,18 +139,8 @@ int main() {
         rep(j, w){
             if(s[i][j]=='#'){
                 messcnt++;
-                hbox[i].push_back(j);
-                wbox[j].push_back(i);
             }
         }
-    }
-
-    rep(i, h){
-        sort(hbox[i].begin(), hbox[i].end());
-    }
-
-    rep(i, w){
-        sort(wbox[i].begin(), wbox[i].end());
     }
 
     vector<mint> two(h*w-messcnt+1);
@@ -137,11 +154,7 @@ int main() {
     rep(i, h){
         rep(j, w){
             if(s[i][j]=='.'){
-                auto it = upper_bound(hbox[i].begin(), hbox[i].end(), j);
-                int hnum = (*(it) - *(--it)) - 1;
-                it = upper_bound(wbox[j].begin(), wbox[j].end(), i);
-                int wnum = (*(it) - *(--it)) - 1;
-                int x = hnum + wnum - 1;
+                int x = hbox[i][j+1] + wbox[j][i+1] - 1;
                 res += two[h*w-messcnt] - two[h*w-messcnt - x];
             }
         }

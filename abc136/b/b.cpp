@@ -9,6 +9,11 @@ using ull = unsigned long long;
 using P = pair<int, int>;
 
 int main(){
-    
+    int n;
+    cin >> n;
+    // int ten = 10;
+    int res = 0;
+    rep2(i, 1, n + 1) { res += to_string(i).size() & 1; }
+    cout << res << endl;
     return 0;
 }
